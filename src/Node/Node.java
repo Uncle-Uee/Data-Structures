@@ -17,7 +17,8 @@ public class Node<T> {
     /* ---------- ---------- ---------- VARIABLES ---------- ---------- ---------- */
 
     private T data;
-    private Node next;
+    private Node<T> next;
+    private Node<T> previous;
 
     /* ---------- ---------- ---------- CONSTRUCTOR ---------- ---------- ---------- */
     public Node() {
@@ -30,7 +31,7 @@ public class Node<T> {
     /* ---------- ---------- ---------- GETTERS AND SETTERS ---------- ---------- ---------- */
 
     public T getData() {
-        return data;
+        return this.data;
     }
 
     public void setData(T data) {
@@ -38,11 +39,19 @@ public class Node<T> {
     }
 
     public Node<T> getNext() {
-        return next;
+        return this.next;
     }
 
     public void setNext(Node<T> next) {
         this.next = next;
+    }
+
+    public Node<T> getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(Node<T> previous) {
+        this.previous = previous;
     }
 
     /* ---------- ---------- ---------- TO STRING ---------- ---------- ---------- */

@@ -77,7 +77,7 @@ public class LinkedList<T> {
     /**
      * Add a new Node to the Head/Start of the Linked List.
      *
-     * @param data the "Type" of data for example "T data" to be stored in the New Node.
+     * @param data The data of the New Node.
      */
     public void AddHeadNode(T data) {
         Node<T> node = new Node<>(data);
@@ -113,7 +113,7 @@ public class LinkedList<T> {
     /**
      * Add a new Tail/Last Node to the Linked List.
      *
-     * @param data the "Type" of data for example "T data" to be stored in the New Node.
+     * @param data The data of the New Node.
      */
     public void AddTailNode(T data) {
         Node<T> node = new Node<>(data);
@@ -155,10 +155,65 @@ public class LinkedList<T> {
     /**
      * Add a New Node with the T data to the Linked List at the given Index.
      *
-     * @param index position to attach the New Node to the Linked List.
-     * @param data  the "Type" of data for example "T data" to be stored in the New Node.
+     * @param index The Index position Where the New Node Will be Attached to the Linked List.
+     * @param data  The data of the New Node.
      */
     public void AddNodeAt(int index, T data) {
+        if (isEmpty() || index < 0 || index == Size())
+            throw new RuntimeException("Empty Linked List or Index out of bounds.");
+
+        if (index == 0)
+            AddHeadNode(data);
+        else if (index == Size() - 1)
+            AddTailNode(data);
+
+        else {
+            RESET();
+            int count = 0;
+            Node<T> node = new Node<>(data);
+
+            while (this.CURRENT != null) {
+                if (count == index) {
+                    node.setNext(this.CURRENT);
+                    this.PREVIOUS.setNext(node);
+                }
+                count++;
+                INCREMENT();
+            }
+        }
+    }
+
+
+    /**
+     * Add a New Node Before the Index.
+     *
+     * @param index The Index position of the Node to Insert Before.
+     * @param data  The data of the New Node.
+     */
+    public void AddNodeBefore(int index, T data) {
+        if (isEmpty() || index < 0 || index == Size())
+            throw new RuntimeException("Empty Linked List or Index out of bounds.");
+
+        if (index == 0)
+            AddHeadNode(data);
+        else
+            AddNodeAt(index - 1, data);
+    }
+
+    /**
+     * Add a New Node After the Index.
+     *
+     * @param index The Index position of the Node to Insert After.
+     * @param data  The data of the New Node.
+     */
+    public void AddNodeAfter(int index, T data) {
+        if (isEmpty() || index < 0 || index == Size())
+            throw new RuntimeException("Empty Linked List or Index out of bounds.");
+
+        if (index == Size() - 1)
+            AddTailNode(data);
+        else
+            AddNodeAt(index + 1, data);
     }
 
 
@@ -169,7 +224,7 @@ public class LinkedList<T> {
      * The First node is at Index 0.
      * The Second node is at Index 1 etc
      *
-     * @param index position of the Node to Delete/Remove.
+     * @param index The Index position of the Node to Delete/Remove.
      * @return the Delete/Removed Node.
      */
     public Node<T> DeleteNodeAt(int index) {
@@ -198,7 +253,7 @@ public class LinkedList<T> {
     /**
      * Count how many Nodes Contains the Same Object Data.
      *
-     * @param data to find.
+     * @param data The data to find.
      * @return the Total Number of Nodes that contain Similar Data.
      */
     public int CountDuplicateNodes(Object data) {
@@ -221,7 +276,7 @@ public class LinkedList<T> {
     /**
      * Find the Index of the First Node that Contains the Specified Data.
      *
-     * @param data to Find.
+     * @param data The data to Find.
      * @return the Index of the Node.
      */
     public int IndexOf(Object data) {
@@ -245,7 +300,7 @@ public class LinkedList<T> {
     /**
      * Delete/Remove the First Occurrence of the Node that Contains the data.
      *
-     * @param data of the Node to Match.
+     * @param data The Data of the Node to Match.
      * @return the Deleted/Removed Node.
      */
     public Node<T> DeleteFirstOccurrence(Object data) {
@@ -267,7 +322,7 @@ public class LinkedList<T> {
     /**
      * Delete/Remove the Last Occurrence of the Node that Contains the  data.
      *
-     * @param data of the Node to Match.
+     * @param data The data of the Node to Match.
      * @return the Deleted/Removed Node.
      */
     public Node<T> DeleteLastOccurrence(Object data) {
@@ -296,7 +351,7 @@ public class LinkedList<T> {
     /**
      * Deletes all the Nodes that Contains the Given data.
      *
-     * @param data the data to find in each Node.
+     * @param data The data to find in each Node.
      */
     public void DeleteAllOccurrences(Object data) {
         if (isEmpty()) throw new RuntimeException("Empty Linked List.");
@@ -324,8 +379,8 @@ public class LinkedList<T> {
      * The First node is at Index 0.
      * The Second node is at Index 1 etc
      *
-     * @param index position of the node to Replace.
-     * @param data  the data of the Newly Created Node.
+     * @param index The Index Position of the node to Replace.
+     * @param data  The data of the Newly Created Node.
      */
     public void ReplaceNodeAt(int index, T data) {
         if (isEmpty()) throw new RuntimeException("Empty Linked List or Index out of bounds.");
@@ -364,8 +419,8 @@ public class LinkedList<T> {
      * The First node is at Index 0.
      * The Second node is at Index 1 etc
      *
-     * @param index of Node whose Data will be Overwritten.
-     * @param data  the Data that will Replace old Data of the Node found at the index.
+     * @param index The Index position of the Node whose Data will be Overwritten.
+     * @param data  The Data that will Replace old Data of the Node found at the index.
      */
     public void OverwriteNodeData(int index, T data) {
         if (isEmpty()) throw new RuntimeException("Empty Linked List or Index out of bounds.");
