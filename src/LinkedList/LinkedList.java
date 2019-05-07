@@ -15,6 +15,8 @@ package LinkedList;
 
 import Node.*;
 
+import java.util.ArrayList;
+
 public class LinkedList<T> {
 
     /* ---------- ---------- ---------- VARIABLES ---------- ---------- ---------- */
@@ -71,6 +73,34 @@ public class LinkedList<T> {
      */
     public int Size() {
         return isEmpty() ? 0 : this.SIZE;
+    }
+
+
+    /**
+     * Return the First Node of the LinkedList.
+     *
+     * @return
+     */
+    public Node<T> GetFirstNode() {
+        return this.HEAD;
+    }
+
+
+    /**
+     * Return the Last Node of the LinkedList.
+     *
+     * @return
+     */
+    public Node<T> GetLastNode() {
+        return this.TAIL;
+    }
+
+    /**
+     * Clear the LinkedList of all Existing Nodes.
+     */
+    public void Clear() {
+        this.HEAD = null;
+        this.TAIL = null;
     }
 
 
@@ -257,7 +287,8 @@ public class LinkedList<T> {
      * @return the Total Number of Nodes that contain Similar Data.
      */
     public int CountDuplicateNodes(Object data) {
-        if (isEmpty()) throw new RuntimeException("Empty Linked List.");
+        if (isEmpty())
+            throw new RuntimeException("Empty Linked List.");
 
         if (Size() == 1 && this.HEAD.getData() == data)
             return 1;
@@ -280,7 +311,8 @@ public class LinkedList<T> {
      * @return the Index of the Node.
      */
     public int IndexOf(Object data) {
-        if (isEmpty()) throw new RuntimeException("Empty Linked List.");
+        if (isEmpty())
+            throw new RuntimeException("Empty Linked List.");
 
         if (this.HEAD.getData().equals(data))
             return 0;
@@ -304,7 +336,8 @@ public class LinkedList<T> {
      * @return the Deleted/Removed Node.
      */
     public Node<T> DeleteFirstOccurrence(Object data) {
-        if (isEmpty()) throw new RuntimeException("Empty Linked List.");
+        if (isEmpty())
+            throw new RuntimeException("Empty Linked List.");
 
         if (this.HEAD.getData().equals(data))
             return DeleteHeadNode();
@@ -326,7 +359,8 @@ public class LinkedList<T> {
      * @return the Deleted/Removed Node.
      */
     public Node<T> DeleteLastOccurrence(Object data) {
-        if (isEmpty()) throw new RuntimeException("Empty Linked List.");
+        if (isEmpty())
+            throw new RuntimeException("Empty Linked List.");
 
         if (Size() == 1 && this.HEAD.getData() == data)
             return DeleteHeadNode();
@@ -354,7 +388,8 @@ public class LinkedList<T> {
      * @param data The data to find in each Node.
      */
     public void DeleteAllOccurrences(Object data) {
-        if (isEmpty()) throw new RuntimeException("Empty Linked List.");
+        if (isEmpty())
+            throw new RuntimeException("Empty Linked List.");
 
         RESET();
         while (this.CURRENT != null) {
@@ -383,7 +418,8 @@ public class LinkedList<T> {
      * @param data  The data of the Newly Created Node.
      */
     public void ReplaceNodeAt(int index, T data) {
-        if (isEmpty()) throw new RuntimeException("Empty Linked List or Index out of bounds.");
+        if (isEmpty())
+            throw new RuntimeException("Empty Linked List or Index out of bounds.");
 
         if (index == 0) {
             DeleteHeadNode();
@@ -423,7 +459,8 @@ public class LinkedList<T> {
      * @param data  The Data that will Replace old Data of the Node found at the index.
      */
     public void OverwriteNodeData(int index, T data) {
-        if (isEmpty()) throw new RuntimeException("Empty Linked List or Index out of bounds.");
+        if (isEmpty())
+            throw new RuntimeException("Empty Linked List or Index out of bounds.");
 
         if (index == 0) {
             this.HEAD.setData(data);
@@ -444,10 +481,62 @@ public class LinkedList<T> {
 
 
     /**
+     * Return an Array Containing all the Elements of the LinkedList.
+     *
+     * @return
+     */
+    public T[] ToArray() {
+        if (isEmpty())
+            return null;
+
+        T[] array = (T[]) new Object[Size()];
+        if (Size() == 1) {
+            array[0] = this.HEAD.getData();
+            return array;
+        }
+
+        this.CURRENT = this.HEAD;
+        int index = 0;
+        while (this.CURRENT != null) {
+            array[index] = this.CURRENT.getData();
+            this.CURRENT = this.CURRENT.getNext();
+            index++;
+        }
+
+        return array;
+    }
+
+    /**
+     * Return a List Containing all the Elements of the LinkedList.
+     *
+     * @return
+     */
+    public ArrayList<T> ToList() {
+        if (isEmpty())
+            return null;
+
+        ArrayList<T> list = new ArrayList<>();
+        if (Size() == 1) {
+            list.add(this.HEAD.getData());
+            return list;
+        }
+
+        this.CURRENT = this.HEAD;
+        while (this.CURRENT != null) {
+            list.add(this.CURRENT.getData());
+            this.CURRENT = this.CURRENT.getNext();
+        }
+
+        return list;
+    }
+
+
+    /**
      * Display the Data of the Nodes in the Linked List.
      */
     public void Display() {
-        if (isEmpty()) throw new RuntimeException("Empty Linked List or Index out of bounds.");
+        if (isEmpty())
+            throw new RuntimeException("Empty Linked List or Index out of bounds.");
 
         else if (Size() == 1)
             System.out.println(this.HEAD.toString());
@@ -461,16 +550,19 @@ public class LinkedList<T> {
                 this.CURRENT = this.CURRENT.getNext();
             }
 
-            System.out.println(list.length() > 0 ? list.substring(0, list.length() - 4) : "Empty Linked List");
+            System.out.println(list.length() > 0 ? list.substring(0, list.length() - 4) : "Empty Linked " +
+                    "List");
         }
     }
 
 
     /**
-     * Display the Data of the Nodes in the Linked List in Reverse Order, from the Last Node to the First Node.
+     * Display the Data of the Nodes in the Linked List in Reverse Order, from the Last Node to the First
+     * Node.
      */
     public void DisplayReverseOrder() {
-        if (isEmpty()) throw new RuntimeException("Empty Linked List or Index out of bounds.");
+        if (isEmpty())
+            throw new RuntimeException("Empty Linked List or Index out of bounds.");
 
         else if (Size() == 1)
             System.out.println(this.HEAD.toString());
@@ -484,7 +576,8 @@ public class LinkedList<T> {
                 }
                 list.append(this.CURRENT).append(" -> ");
             }
-            System.out.println(list.length() > 0 ? list.substring(0, list.length() - 4) : "Empty Linked List");
+            System.out.println(list.length() > 0 ? list.substring(0, list.length() - 4) : "Empty Linked " +
+                    "List");
         }
     }
 
